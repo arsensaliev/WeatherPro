@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="location_name">Moscow</string>
+    <string name="page_home">Home</string>
+    <string name="group_general">General</string>
+    <string name="group_support">Support</string>
+    <string name="page_info">Info</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="page_history">History</string>
+    <string name="page_developer">Developer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="text_view_developer">Developer:</string>
+    <string name="text_view_developer_name">Arsen Saliev</string>
+    <string name="text_view_developer_contacts">Contacts</string>
+    <string name="text_view_developer_number">+7 (708) 077-8008</string>
+    <string name="text_view_developer_email">arsensaliev03@gmail.com</string>
+    <string name="main_fragment_current_info">-10</string>
+    <string name="main_fragment_temperature">Temperature:</string>
+    <string name="main_fragment_wind">Wind:</string>
+    <string name="main_fragment_humidity">Humidity:</string>
+    <string name="Open">open</string>
+    <string name="Close">close</string>
+</resources>
