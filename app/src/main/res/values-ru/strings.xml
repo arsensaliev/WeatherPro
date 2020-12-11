@@ -19,4 +19,11 @@
     <string name="main_fragment_temperature">Температура:</string>
     <string name="main_fragment_wind">Ветер:</string>
     <string name="main_fragment_humidity">Влажность:</string>
+    <string name="main_fragment_pressure">Давление:</string>
+    <string name="Close">закрыть</string>
+    <string name="Open">открыть</string>
+    <string name="main_fragment_pressure_value">hPa</string>
+    <string name="main_fragment_wind_value">м/сек</string>
+    <string name="main_fragment_humidity_value">%</string>
+    <string name="main_fragment_temperature_value">°С</string>
 </resources>

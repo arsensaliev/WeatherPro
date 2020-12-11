@@ -5,10 +5,12 @@
             <item
                 android:id="@+id/home"
                 android:icon="@drawable/ic_home_24"
+                android:orderInCategory="10"
                 android:title="@string/page_home" />
             <item
                 android:id="@+id/history"
                 android:icon="@drawable/ic_history_24"
+                android:orderInCategory="20"
                 android:title="@string/page_history" />
         </menu>
     </item>
@@ -18,10 +20,12 @@
             <item
                 android:id="@+id/info"
                 android:icon="@drawable/ic_info_24"
+                android:orderInCategory="20"
                 android:title="@string/page_info" />
             <item
                 android:id="@+id/developer"
                 android:icon="@drawable/ic_developer_24"
+                android:orderInCategory="10"
                 android:title="@string/page_developer" />
         </menu>
     </item>

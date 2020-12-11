@@ -16,10 +16,15 @@
     <string name="text_view_developer_contacts">Contacts</string>
     <string name="text_view_developer_number">+7 (708) 077-8008</string>
     <string name="text_view_developer_email">arsensaliev03@gmail.com</string>
-    <string name="main_fragment_current_info">-10</string>
+    <string name="main_fragment_current_info">value</string>
     <string name="main_fragment_temperature">Temperature:</string>
     <string name="main_fragment_wind">Wind:</string>
     <string name="main_fragment_humidity">Humidity:</string>
     <string name="Open">open</string>
     <string name="Close">close</string>
+    <string name="main_fragment_pressure">Pressure:</string>
+    <string name="main_fragment_pressure_value">hPa</string>
+    <string name="main_fragment_wind_value">m/sec</string>
+    <string name="main_fragment_humidity_value">%</string>
+    <string name="main_fragment_temperature_value">°С</string>
 </resources>
