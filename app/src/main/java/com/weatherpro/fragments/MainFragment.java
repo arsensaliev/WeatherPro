@@ -16,9 +16,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.weatherpro.Constants;
 import com.weatherpro.MainActivity;
 import com.weatherpro.R;
-import com.weatherpro.models.CurrentApi;
-import com.weatherpro.models.Main;
-import com.weatherpro.models.Wind;
+import com.weatherpro.models.current.CurrentApi;
+import com.weatherpro.models.current.Main;
+import com.weatherpro.models.current.Wind;
 import com.weatherpro.requests.WeatherRequest;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,16 +41,12 @@ public class MainFragment extends Fragment {
     TextView windView;
     TextView humidityView;
     TextView pressureView;
-    Retrofit retrofit;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+
     }
 
     @Nullable
@@ -60,7 +56,6 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
         init(view);
-        getCurrentWeather(view);
         return view;
     }
 
@@ -75,7 +70,10 @@ public class MainFragment extends Fragment {
 
 
     private void getCurrentWeather(View view) {
-
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         WeatherRequest weatherRequest = retrofit.create(WeatherRequest.class);
         Call<CurrentApi> currentApiCall = weatherRequest.getCurrentData(55, 37, Constants.API_KEY);
@@ -99,7 +97,7 @@ public class MainFragment extends Fragment {
                     Main main = data.getMain();
                     Wind wind = data.getWind();
 
-                    int temperature = (int) (main.getTemp() - 273.15);
+                    int temperature = (int) Math.round(main.getTemp());
 
                     temperatureView.setText(String.valueOf(temperature));
                     windView.setText(Double.toString(wind.getSpeed()));

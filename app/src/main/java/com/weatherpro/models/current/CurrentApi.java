@@ -1,13 +1,9 @@
 
-package com.weatherpro.models;
+package com.weatherpro.models.current;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.weatherpro.models.Main;
-import com.weatherpro.models.Sys;
-import com.weatherpro.models.Weather;
-import com.weatherpro.models.Wind;
 
 public class CurrentApi {
 
