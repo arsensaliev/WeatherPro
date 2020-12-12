@@ -8,18 +8,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.weatherpro.R;
 
-public class RecyclerViewHolder extends RecyclerView.ViewHolder {
-    private TextView locationCity;
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        private TextView locationCity;
 
 
-    public RecyclerViewHolder(@NonNull View itemView) {
-        super(itemView);
-        locationCity = itemView.findViewById(R.id.fragment_location_city);
+        public RecyclerViewHolder(@NonNull View itemView) {
+            super(itemView);
+            locationCity = itemView.findViewById(R.id.fragment_location_city);
+        }
+
+
+
+        public TextView getLocationCity() {
+            return locationCity;
+        }
     }
-
-
-
-    public TextView getLocationCity() {
-        return locationCity;
-    }
-}
