@@ -12,16 +12,16 @@
                 android:icon="@drawable/ic_history_24"
                 android:orderInCategory="20"
                 android:title="@string/page_history" />
+            <item
+                android:id="@+id/location"
+                android:icon="@drawable/ic_location_city_24"
+                android:orderInCategory="20"
+                android:title="@string/page_location" />
         </menu>
     </item>
 
-    <item android:title="@string/group_support">
+    <item android:title="@string/group_reference">
         <menu>
-            <item
-                android:id="@+id/info"
-                android:icon="@drawable/ic_info_24"
-                android:orderInCategory="20"
-                android:title="@string/page_info" />
             <item
                 android:id="@+id/developer"
                 android:icon="@drawable/ic_developer_24"

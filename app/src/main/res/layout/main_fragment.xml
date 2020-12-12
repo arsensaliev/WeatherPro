@@ -8,7 +8,7 @@
     tools:context=".fragments.MainFragment">
 
     <TextView
-        android:id="@+id/mainFragmentLocation"
+        android:id="@+id/main_fragment_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -27,7 +27,7 @@
         android:text="@string/main_fragment_temperature"
         android:textSize="@dimen/main_fragment_info"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainFragmentLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/main_fragment_location" />
 
     <TextView
         android:id="@+id/main_fragment_current_temperature"
