@@ -55,15 +55,14 @@ public class ForecastFragment extends Fragment {
         loadData();
         getCurrentDate();
         getDailyWeather(view);
-//        initRecyclerView(view);
     }
 
-    private void initRecyclerView(View view) {
+    private void initRecyclerView(View view, List<Daily> list) {
         RecyclerView recyclerView = view.findViewById(R.id.forecast_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        recyclerAdapter = new RecyclerAdapter(days, dailyList);
+        recyclerAdapter = new RecyclerAdapter(days, list);
         recyclerView.setAdapter(recyclerAdapter);
     }
 
@@ -109,8 +108,8 @@ public class ForecastFragment extends Fragment {
 
                 if (data != null) {
                     Log.d(TAG, data.getDaily().toString());
-                    dailyList.addAll(data.getDaily());
-                    Log.d(TAG, "Нихера нет!!!");
+                    dailyList = data.getDaily();
+                    initRecyclerView(view, dailyList);
                 }
             }
 

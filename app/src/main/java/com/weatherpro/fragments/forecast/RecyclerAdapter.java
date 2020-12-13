@@ -1,6 +1,5 @@
 package com.weatherpro.fragments.forecast;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.weatherpro.R;
 import com.weatherpro.models.dailyApi.Daily;
+import com.weatherpro.models.dailyApi.Weather;
 
 import java.util.List;
 
@@ -35,7 +35,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        Log.d(TAG, dailyList.get(position).toString());
+        Daily daily = dailyList.get(position);
+        List<Weather> weather = daily.getWeather();
+
+        int temp = (int) daily.getTemp().getDay();
+        String desc = weather.get(0).getDescription();
+        holder.setData(String.valueOf(temp), days[position], desc);
     }
 
     @Override
