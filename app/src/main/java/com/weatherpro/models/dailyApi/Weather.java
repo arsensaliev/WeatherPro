@@ -1,5 +1,5 @@
 
-package com.weatherpro.models.current;
+package com.weatherpro.models.dailyApi;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

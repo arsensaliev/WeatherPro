@@ -1,5 +1,5 @@
 
-package com.weatherpro.models.forecast;
+package com.weatherpro.models.dailyApi;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,68 +8,68 @@ public class Temp {
 
     @SerializedName("day")
     @Expose
-    private int day;
+    private double day;
     @SerializedName("min")
     @Expose
-    private int min;
+    private double min;
     @SerializedName("max")
     @Expose
-    private int max;
+    private double max;
     @SerializedName("night")
     @Expose
-    private int night;
+    private double night;
     @SerializedName("eve")
     @Expose
-    private int eve;
+    private double eve;
     @SerializedName("morn")
     @Expose
-    private int morn;
+    private double morn;
 
-    public int getDay() {
+    public double getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(double day) {
         this.day = day;
     }
 
-    public int getMin() {
+    public double getMin() {
         return min;
     }
 
-    public void setMin(int min) {
+    public void setMin(double min) {
         this.min = min;
     }
 
-    public int getMax() {
+    public double getMax() {
         return max;
     }
 
-    public void setMax(int max) {
+    public void setMax(double max) {
         this.max = max;
     }
 
-    public int getNight() {
+    public double getNight() {
         return night;
     }
 
-    public void setNight(int night) {
+    public void setNight(double night) {
         this.night = night;
     }
 
-    public int getEve() {
+    public double getEve() {
         return eve;
     }
 
-    public void setEve(int eve) {
+    public void setEve(double eve) {
         this.eve = eve;
     }
 
-    public int getMorn() {
+    public double getMorn() {
         return morn;
     }
 
-    public void setMorn(int morn) {
+    public void setMorn(double morn) {
         this.morn = morn;
     }
 

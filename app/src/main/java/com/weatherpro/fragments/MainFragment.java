@@ -18,9 +18,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.weatherpro.Constants;
 import com.weatherpro.MainActivity;
 import com.weatherpro.R;
-import com.weatherpro.models.current.CurrentApi;
-import com.weatherpro.models.current.Main;
-import com.weatherpro.models.current.Wind;
+import com.weatherpro.models.currentApi.Current;
+import com.weatherpro.models.currentApi.CurrentApi;
 import com.weatherpro.requests.WeatherRequest;
 
 import org.jetbrains.annotations.NotNull;
@@ -62,7 +61,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
-
+        loadData();
         init(view);
         return view;
     }
@@ -74,7 +73,8 @@ public class MainFragment extends Fragment {
         humidityView = view.findViewById(R.id.main_fragment_current_humidity);
         pressureView = view.findViewById(R.id.main_fragment_current_pressure);
         cityTextView = view.findViewById(R.id.main_fragment_location);
-        loadData();
+
+        cityTextView.setText(cityName);
         getCurrentWeather(view);
     }
 
@@ -94,25 +94,21 @@ public class MainFragment extends Fragment {
             public void onResponse(@NotNull Call<CurrentApi> call, @NotNull Response<CurrentApi> response) {
                 if (response.code() == 404) {
                     Snackbar.make(view, "Not Found", Snackbar.LENGTH_LONG).show();
-                    //                    Log.d(TAG, "Please enter a valid Location");
+                    Log.d(TAG, "Please enter a valid Location");
                 } else if (!(response.isSuccessful())) {
                     Snackbar.make(view, response.code(), Snackbar.LENGTH_LONG).show();
-                    //                    Log.d(TAG, String.valueOf(response.code()));
+                    Log.d(TAG, String.valueOf(response.code()));
                 }
 
 
                 CurrentApi data = response.body();
 
                 if (data != null) {
-                    Main main = data.getMain();
-                    Wind wind = data.getWind();
-
-                    int temperature = (int) Math.round(main.getTemp());
-
-                    temperatureView.setText(String.valueOf(temperature));
-                    windView.setText((String.valueOf(wind.getSpeed())));
-                    humidityView.setText(String.valueOf(main.getHumidity()));
-                    pressureView.setText(String.valueOf(main.getPressure()));
+                    Current current = data.getCurrent();
+                    temperatureView.setText(String.valueOf((int) current.getTemp()));
+                    windView.setText(String.valueOf(current.getWindSpeed()));
+                    pressureView.setText(String.valueOf(current.getPressure()));
+                    humidityView.setText(String.valueOf(current.getHumidity()));
                 }
             }
 
@@ -129,7 +125,5 @@ public class MainFragment extends Fragment {
         cityName = sharedPreferences.getString(Constants.SHARED_COUNTRY_NAME, Constants.SHARED_COUNTRY_NAME_DEFAULT);
         cityLat = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LAT, Constants.SHARED_COUNTRY_LAT_DEFAULT);
         cityLon = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LON, Constants.SHARED_COUNTRY_LON_DEFAULT);
-
-        cityTextView.setText(cityName);
     }
 }

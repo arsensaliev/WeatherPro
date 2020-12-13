@@ -1,7 +1,7 @@
 package com.weatherpro.requests;
 
-import com.weatherpro.models.current.CurrentApi;
-import com.weatherpro.models.forecast.ForecastApi;
+import com.weatherpro.models.currentApi.CurrentApi;
+import com.weatherpro.models.dailyApi.DailyApi;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -9,9 +9,9 @@ import retrofit2.http.Query;
 
 public interface WeatherRequest {
 
-    @GET("weather?units=metric")
+    @GET("onecall?units=metric&exclude=minutely,hourly,daily")
     Call<CurrentApi> getCurrentData(@Query("lat") int lat, @Query("lon") int lon, @Query("appid") String apiKey);
 
-    @GET("forecast/daily?units=metric")
-    Call<ForecastApi> getForecastData(@Query("lat") int lat, @Query("lon") int lon, @Query("cnt") int cnt, @Query("appid") String apiKey);
+    @GET("onecall?units=metric&exclude=minutely,hourly,current")
+    Call<DailyApi> getDailyData(@Query("lat") int lat, @Query("lon") int lon, @Query("appid") String apiKey);
 }

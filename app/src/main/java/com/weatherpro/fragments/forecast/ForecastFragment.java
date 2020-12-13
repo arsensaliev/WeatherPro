@@ -17,14 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.weatherpro.Constants;
 import com.weatherpro.R;
-import com.weatherpro.models.forecast.ForecastApi;
-import com.weatherpro.models.forecast.List;
+import com.weatherpro.models.dailyApi.Daily;
+import com.weatherpro.models.dailyApi.DailyApi;
 import com.weatherpro.requests.WeatherRequest;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -38,9 +39,9 @@ public class ForecastFragment extends Fragment {
     private static final String TAG = "FORECAST_FRAGMENT";
     private String[] days;
     private RecyclerAdapter recyclerAdapter;
-    private java.util.List<List> list;
     private int lat;
     private int lon;
+    private List<Daily> dailyList;
 
     @Nullable
     @Override
@@ -52,8 +53,9 @@ public class ForecastFragment extends Fragment {
 
     private void init(View view) {
         loadData();
-        getForecastWeather(view);
-        // initRecyclerView(view);
+        getCurrentDate();
+        getDailyWeather(view);
+//        initRecyclerView(view);
     }
 
     private void initRecyclerView(View view) {
@@ -61,9 +63,7 @@ public class ForecastFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        getCurrentDate();
-
-        recyclerAdapter = new RecyclerAdapter(days, list);
+        recyclerAdapter = new RecyclerAdapter(days, dailyList);
         recyclerView.setAdapter(recyclerAdapter);
     }
 
@@ -77,17 +77,25 @@ public class ForecastFragment extends Fragment {
         }
     }
 
-    private void getForecastWeather(View view) {
+
+    private void loadData() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(Constants.MAIN_SHARED_NAME, Context.MODE_PRIVATE);
+        lat = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LAT, Constants.SHARED_COUNTRY_LAT_DEFAULT);
+        lon = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LON, Constants.SHARED_COUNTRY_LON_DEFAULT);
+    }
+
+    private void getDailyWeather(View view) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         WeatherRequest weatherRequest = retrofit.create(WeatherRequest.class);
-        Call<ForecastApi> forecastApiCall = weatherRequest.getForecastData(lat, lon, Constants.FORECAST_DEFAULT_DAY, Constants.API_KEY);
-        forecastApiCall.enqueue(new Callback<ForecastApi>() {
+        Call<DailyApi> currentApiCall = weatherRequest.getDailyData(lat, lon, Constants.API_KEY);
+
+        currentApiCall.enqueue(new Callback<DailyApi>() {
             @Override
-            public void onResponse(@NotNull Call<ForecastApi> call, @NotNull Response<ForecastApi> response) {
+            public void onResponse(@NotNull Call<DailyApi> call, @NotNull Response<DailyApi> response) {
                 if (response.code() == 404) {
                     Snackbar.make(view, "Not Found", Snackbar.LENGTH_LONG).show();
                     Log.d(TAG, "Please enter a valid Location");
@@ -96,24 +104,21 @@ public class ForecastFragment extends Fragment {
                     Log.d(TAG, String.valueOf(response.code()));
                 }
 
-                ForecastApi data = response.body();
+
+                DailyApi data = response.body();
 
                 if (data != null) {
-                    list = data.getList();
+                    Log.d(TAG, data.getDaily().toString());
+                    dailyList.addAll(data.getDaily());
+                    Log.d(TAG, "Нихера нет!!!");
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<ForecastApi> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<DailyApi> call, @NotNull Throwable t) {
                 Snackbar.make(view, Objects.requireNonNull(t.getMessage()), Snackbar.LENGTH_LONG).show();
                 Log.d(TAG, t.getMessage());
             }
         });
-    }
-
-    private void loadData() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(Constants.MAIN_SHARED_NAME, Context.MODE_PRIVATE);
-        lat = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LAT, Constants.SHARED_COUNTRY_LAT_DEFAULT);
-        lon = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LON, Constants.SHARED_COUNTRY_LON_DEFAULT);
     }
 }
