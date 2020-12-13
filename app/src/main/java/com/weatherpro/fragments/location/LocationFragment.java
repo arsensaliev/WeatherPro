@@ -79,7 +79,7 @@ public class LocationFragment extends Fragment {
     }
 
     private void initRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_location);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
