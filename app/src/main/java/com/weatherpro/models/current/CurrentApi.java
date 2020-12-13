@@ -22,7 +22,7 @@ public class CurrentApi {
     private Main main;
     @SerializedName("visibility")
     @Expose
-    private Integer visibility;
+    private int visibility;
     @SerializedName("wind")
     @Expose
     private Wind wind;
@@ -31,22 +31,22 @@ public class CurrentApi {
     private Clouds clouds;
     @SerializedName("dt")
     @Expose
-    private Integer dt;
+    private int dt;
     @SerializedName("sys")
     @Expose
     private Sys sys;
     @SerializedName("timezone")
     @Expose
-    private Integer timezone;
+    private int timezone;
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("cod")
     @Expose
-    private Integer cod;
+    private int cod;
 
     public Coord getCoord() {
         return coord;
@@ -80,11 +80,11 @@ public class CurrentApi {
         this.main = main;
     }
 
-    public Integer getVisibility() {
+    public int getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(Integer visibility) {
+    public void setVisibility(int visibility) {
         this.visibility = visibility;
     }
 
@@ -104,11 +104,11 @@ public class CurrentApi {
         this.clouds = clouds;
     }
 
-    public Integer getDt() {
+    public int getDt() {
         return dt;
     }
 
-    public void setDt(Integer dt) {
+    public void setDt(int dt) {
         this.dt = dt;
     }
 
@@ -120,19 +120,19 @@ public class CurrentApi {
         this.sys = sys;
     }
 
-    public Integer getTimezone() {
+    public int getTimezone() {
         return timezone;
     }
 
-    public void setTimezone(Integer timezone) {
+    public void setTimezone(int timezone) {
         this.timezone = timezone;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -144,11 +144,11 @@ public class CurrentApi {
         this.name = name;
     }
 
-    public Integer getCod() {
+    public int getCod() {
         return cod;
     }
 
-    public void setCod(Integer cod) {
+    public void setCod(int cod) {
         this.cod = cod;
     }
 

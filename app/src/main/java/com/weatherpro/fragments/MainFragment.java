@@ -93,7 +93,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<CurrentApi> call, @NotNull Response<CurrentApi> response) {
                 if (response.code() == 404) {
-                    Snackbar.make(view, "", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, "Not Found", Snackbar.LENGTH_LONG).show();
                     //                    Log.d(TAG, "Please enter a valid Location");
                 } else if (!(response.isSuccessful())) {
                     Snackbar.make(view, response.code(), Snackbar.LENGTH_LONG).show();
@@ -110,7 +110,7 @@ public class MainFragment extends Fragment {
                     int temperature = (int) Math.round(main.getTemp());
 
                     temperatureView.setText(String.valueOf(temperature));
-                    windView.setText(Double.toString(wind.getSpeed()));
+                    windView.setText((String.valueOf(wind.getSpeed())));
                     humidityView.setText(String.valueOf(main.getHumidity()));
                     pressureView.setText(String.valueOf(main.getPressure()));
                 }

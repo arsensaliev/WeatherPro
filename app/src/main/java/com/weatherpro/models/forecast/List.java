@@ -8,13 +8,13 @@ public class List {
 
     @SerializedName("dt")
     @Expose
-    private Integer dt;
+    private int dt;
     @SerializedName("sunrise")
     @Expose
-    private Integer sunrise;
+    private int sunrise;
     @SerializedName("sunset")
     @Expose
-    private Integer sunset;
+    private int sunset;
     @SerializedName("temp")
     @Expose
     private Temp temp;
@@ -23,47 +23,47 @@ public class List {
     private FeelsLike feelsLike;
     @SerializedName("pressure")
     @Expose
-    private Double pressure;
+    private double pressure;
     @SerializedName("humidity")
     @Expose
-    private Integer humidity;
+    private int humidity;
     @SerializedName("weather")
     @Expose
     private java.util.List<Weather> weather = null;
     @SerializedName("speed")
     @Expose
-    private Double speed;
+    private double speed;
     @SerializedName("deg")
     @Expose
-    private Integer deg;
+    private int deg;
     @SerializedName("clouds")
     @Expose
-    private Integer clouds;
+    private int clouds;
     @SerializedName("pop")
     @Expose
-    private Double pop;
+    private double pop;
 
-    public Integer getDt() {
+    public int getDt() {
         return dt;
     }
 
-    public void setDt(Integer dt) {
+    public void setDt(int dt) {
         this.dt = dt;
     }
 
-    public Integer getSunrise() {
+    public int getSunrise() {
         return sunrise;
     }
 
-    public void setSunrise(Integer sunrise) {
+    public void setSunrise(int sunrise) {
         this.sunrise = sunrise;
     }
 
-    public Integer getSunset() {
+    public int getSunset() {
         return sunset;
     }
 
-    public void setSunset(Integer sunset) {
+    public void setSunset(int sunset) {
         this.sunset = sunset;
     }
 
@@ -83,19 +83,19 @@ public class List {
         this.feelsLike = feelsLike;
     }
 
-    public Double getPressure() {
+    public double getPressure() {
         return pressure;
     }
 
-    public void setPressure(Double pressure) {
+    public void setPressure(double pressure) {
         this.pressure = pressure;
     }
 
-    public Integer getHumidity() {
+    public int getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Integer humidity) {
+    public void setHumidity(int humidity) {
         this.humidity = humidity;
     }
 
@@ -107,35 +107,35 @@ public class List {
         this.weather = weather;
     }
 
-    public Double getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Double speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
-    public Integer getDeg() {
+    public int getDeg() {
         return deg;
     }
 
-    public void setDeg(Integer deg) {
+    public void setDeg(int deg) {
         this.deg = deg;
     }
 
-    public Integer getClouds() {
+    public int getClouds() {
         return clouds;
     }
 
-    public void setClouds(Integer clouds) {
+    public void setClouds(int clouds) {
         this.clouds = clouds;
     }
 
-    public Double getPop() {
+    public double getPop() {
         return pop;
     }
 
-    public void setPop(Double pop) {
+    public void setPop(double pop) {
         this.pop = pop;
     }
 

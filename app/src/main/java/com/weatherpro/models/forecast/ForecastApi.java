@@ -1,10 +1,10 @@
-
 package com.weatherpro.models.forecast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Forecast {
+
+public class ForecastApi {
 
     @SerializedName("city")
     @Expose
@@ -14,10 +14,10 @@ public class Forecast {
     private String cod;
     @SerializedName("message")
     @Expose
-    private Double message;
+    private double message;
     @SerializedName("cnt")
     @Expose
-    private Integer cnt;
+    private int cnt;
     @SerializedName("list")
     @Expose
     private java.util.List<List> list = null;
@@ -38,19 +38,19 @@ public class Forecast {
         this.cod = cod;
     }
 
-    public Double getMessage() {
+    public double getMessage() {
         return message;
     }
 
-    public void setMessage(Double message) {
+    public void setMessage(double message) {
         this.message = message;
     }
 
-    public Integer getCnt() {
+    public int getCnt() {
         return cnt;
     }
 
-    public void setCnt(Integer cnt) {
+    public void setCnt(int cnt) {
         this.cnt = cnt;
     }
 

@@ -8,13 +8,13 @@ public class Clouds {
 
     @SerializedName("all")
     @Expose
-    private Integer all;
+    private int all;
 
-    public Integer getAll() {
+    public int getAll() {
         return all;
     }
 
-    public void setAll(Integer all) {
+    public void setAll(int all) {
         this.all = all;
     }
 

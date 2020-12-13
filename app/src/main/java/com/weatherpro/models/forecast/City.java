@@ -8,7 +8,7 @@ public class City {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -20,16 +20,16 @@ public class City {
     private String country;
     @SerializedName("population")
     @Expose
-    private Integer population;
+    private int population;
     @SerializedName("timezone")
     @Expose
-    private Integer timezone;
+    private int timezone;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -57,19 +57,19 @@ public class City {
         this.country = country;
     }
 
-    public Integer getPopulation() {
+    public int getPopulation() {
         return population;
     }
 
-    public void setPopulation(Integer population) {
+    public void setPopulation(int population) {
         this.population = population;
     }
 
-    public Integer getTimezone() {
+    public int getTimezone() {
         return timezone;
     }
 
-    public void setTimezone(Integer timezone) {
+    public void setTimezone(int timezone) {
         this.timezone = timezone;
     }
 

@@ -5,6 +5,8 @@ public class Constants {
     public static final String API_KEY = "f20ec8a6b09b4c33f2b4cd121a0feee5";
     public static final String FILE_CITIES = "cities.json";
 
+    public static final int FORECAST_DEFAULT_DAY = 7;
+
     public static final String MAIN_SHARED_NAME = "MAIN_SHARED_NAME";
     public static final String SHARED_IS_COUNTRY_EMPTY = "SHARED_IS_COUNTRY_EMPTY";
     public static final String SHARED_COUNTRY_NAME = "COUNTRY_NAME";

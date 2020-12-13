@@ -8,46 +8,46 @@ public class FeelsLike {
 
     @SerializedName("day")
     @Expose
-    private Double day;
+    private double day;
     @SerializedName("night")
     @Expose
-    private Double night;
+    private double night;
     @SerializedName("eve")
     @Expose
-    private Double eve;
+    private double eve;
     @SerializedName("morn")
     @Expose
-    private Double morn;
+    private double morn;
 
-    public Double getDay() {
+    public double getDay() {
         return day;
     }
 
-    public void setDay(Double day) {
+    public void setDay(double day) {
         this.day = day;
     }
 
-    public Double getNight() {
+    public double getNight() {
         return night;
     }
 
-    public void setNight(Double night) {
+    public void setNight(double night) {
         this.night = night;
     }
 
-    public Double getEve() {
+    public double getEve() {
         return eve;
     }
 
-    public void setEve(Double eve) {
+    public void setEve(double eve) {
         this.eve = eve;
     }
 
-    public Double getMorn() {
+    public double getMorn() {
         return morn;
     }
 
-    public void setMorn(Double morn) {
+    public void setMorn(double morn) {
         this.morn = morn;
     }
 

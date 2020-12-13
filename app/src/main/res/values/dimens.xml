@@ -4,5 +4,5 @@
     <dimen name="main_fragment_location">32sp</dimen>
     <dimen name="main_fragment_info">32sp</dimen>
     <dimen name="rowItem">24sp</dimen>
-    <dimen name="forecast_rowItem">20sp</dimen>
+    <dimen name="forecast_rowItem">18sp</dimen>
 </resources>

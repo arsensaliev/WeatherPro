@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.weatherpro.fragments.MainFragment;
 import com.weatherpro.fragments.developer.DeveloperFragment;
+import com.weatherpro.fragments.forecast.ForecastFragment;
 import com.weatherpro.fragments.location.LocationFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -128,8 +129,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 pushFragments(fragment, null);
                 toolbar.getMenu().findItem(R.id.app_bar_search).setVisible(true);
                 break;
+
+            case R.id.forecast:
+                fragment = new ForecastFragment();
+                pushFragments(fragment, null);
+                toolbar.getMenu().findItem(R.id.app_bar_search).setVisible(false);
+                break;
             default:
-                pushFragments(new MainFragment(), null);
+                fragment = new MainFragment();
+                pushFragments(fragment, null);
         }
         return true;
     }
