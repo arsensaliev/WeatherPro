@@ -79,8 +79,8 @@ public class ForecastFragment extends Fragment {
 
     private void loadData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(Constants.MAIN_SHARED_NAME, Context.MODE_PRIVATE);
-        lat = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LAT, Constants.SHARED_COUNTRY_LAT_DEFAULT);
-        lon = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LON, Constants.SHARED_COUNTRY_LON_DEFAULT);
+        lat = sharedPreferences.getInt(Constants.SHARED_CITY_LAT, Constants.SHARED_CITY_LAT_DEFAULT);
+        lon = sharedPreferences.getInt(Constants.SHARED_CITY_LON, Constants.SHARED_CITY_LON_DEFAULT);
     }
 
     private void getDailyWeather(View view) {

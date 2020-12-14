@@ -92,13 +92,8 @@ public class LocationFragment extends Fragment {
 
         recyclerAdapter = new RecyclerAdapter(cityModelList);
         recyclerAdapter.SetOnItemClickListener((lat, lon, cityName) -> {
-            editor.putBoolean(Constants.SHARED_IS_COUNTRY_EMPTY, false);
-            editor.putString(Constants.SHARED_COUNTRY_NAME, cityName);
-            editor.putInt(Constants.SHARED_COUNTRY_LAT, lat);
-            editor.putInt(Constants.SHARED_COUNTRY_LON, lon);
-            editor.apply();
+            mainActivity.changeCity(lat, lon, cityName);
             mainActivity.pushFragments(new MainFragment(), null);
-            mainActivity.loadCityName();
         });
         recyclerView.setAdapter(recyclerAdapter);
     }

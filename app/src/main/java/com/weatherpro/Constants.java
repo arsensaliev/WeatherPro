@@ -9,10 +9,10 @@ public class Constants {
 
     public static final String MAIN_SHARED_NAME = "MAIN_SHARED_NAME";
     public static final String SHARED_IS_COUNTRY_EMPTY = "SHARED_IS_COUNTRY_EMPTY";
-    public static final String SHARED_COUNTRY_NAME = "COUNTRY_NAME";
-    public static final String SHARED_COUNTRY_LAT = "COUNTRY_LAT";
-    public static final String SHARED_COUNTRY_LON = "COUNTRY_LON";
-    public static final String SHARED_COUNTRY_NAME_DEFAULT = "Moscow";
-    public static final int SHARED_COUNTRY_LAT_DEFAULT = 55;
-    public static final int SHARED_COUNTRY_LON_DEFAULT = 37;
+    public static final String SHARED_CITY_NAME = "COUNTRY_NAME";
+    public static final String SHARED_CITY_LAT = "COUNTRY_LAT";
+    public static final String SHARED_CITY_LON = "COUNTRY_LON";
+    public static final String SHARED_CITY_NAME_DEFAULT = "Москва";
+    public static final int SHARED_CITY_LAT_DEFAULT = 55;
+    public static final int SHARED_CITY_LON_DEFAULT = 37;
 }

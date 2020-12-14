@@ -1,8 +1,6 @@
 package com.weatherpro.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,11 +42,6 @@ public class MainFragment extends Fragment {
     private TextView pressureView;
     private TextView cityTextView;
 
-    private SharedPreferences.Editor editor;
-
-    private String cityName;
-    private int cityLat;
-    private int cityLon;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +54,6 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
-        loadData();
         init(view);
         return view;
     }
@@ -74,7 +66,6 @@ public class MainFragment extends Fragment {
         pressureView = view.findViewById(R.id.main_fragment_current_pressure);
         cityTextView = view.findViewById(R.id.main_fragment_location);
 
-        cityTextView.setText(cityName);
         getCurrentWeather(view);
     }
 
@@ -86,7 +77,7 @@ public class MainFragment extends Fragment {
                 .build();
 
         WeatherRequest weatherRequest = retrofit.create(WeatherRequest.class);
-        Call<CurrentApi> currentApiCall = weatherRequest.getCurrentData(cityLat, cityLon, Constants.API_KEY);
+        Call<CurrentApi> currentApiCall = weatherRequest.getCurrentData(mainActivity.getLat(), mainActivity.getLon(), Constants.API_KEY);
 
         currentApiCall.enqueue(new Callback<CurrentApi>() {
             @SuppressLint({"SetTextI18n", "DefaultLocale"})
@@ -105,10 +96,13 @@ public class MainFragment extends Fragment {
 
                 if (data != null) {
                     Current current = data.getCurrent();
-                    temperatureView.setText(String.valueOf((int) current.getTemp()));
-                    windView.setText(String.valueOf(current.getWindSpeed()));
-                    pressureView.setText(String.valueOf(current.getPressure()));
-                    humidityView.setText(String.valueOf(current.getHumidity()));
+
+                    String temp = String.valueOf((int) current.getTemp());
+                    String windSpeed = String.valueOf((int) current.getWindSpeed());
+                    String press = String.valueOf(current.getPressure());
+                    String hum = String.valueOf(current.getHumidity());
+
+                    updateViews(temp, windSpeed, press, hum);
                 }
             }
 
@@ -120,10 +114,11 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private void loadData() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(Constants.MAIN_SHARED_NAME, Context.MODE_PRIVATE);
-        cityName = sharedPreferences.getString(Constants.SHARED_COUNTRY_NAME, Constants.SHARED_COUNTRY_NAME_DEFAULT);
-        cityLat = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LAT, Constants.SHARED_COUNTRY_LAT_DEFAULT);
-        cityLon = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LON, Constants.SHARED_COUNTRY_LON_DEFAULT);
+    private void updateViews(String temp, String windSpeed, String press, String hum) {
+        temperatureView.setText(temp);
+        windView.setText(windSpeed);
+        pressureView.setText(press);
+        humidityView.setText(hum);
+        cityTextView.setText(mainActivity.getCityName());
     }
 }
