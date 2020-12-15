@@ -87,15 +87,21 @@ public class LocationFragment extends Fragment {
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         Gson gson = new Gson();
-        String cities = getCities();
-        cityModelList = gson.fromJson(cities, CitiesModel.class).getList();
-
-        recyclerAdapter = new RecyclerAdapter(cityModelList);
-        recyclerAdapter.SetOnItemClickListener((lat, lon, cityName) -> {
-            mainActivity.changeCity(lat, lon, cityName);
-            mainActivity.pushFragments(new MainFragment(), null);
-        });
-        recyclerView.setAdapter(recyclerAdapter);
+        new Thread(() -> {
+            String cities = getCities();
+            cityModelList = gson.fromJson(cities, CitiesModel.class).getList();
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    recyclerAdapter = new RecyclerAdapter(cityModelList);
+                    recyclerAdapter.SetOnItemClickListener((lat, lon, cityName) -> {
+                        mainActivity.changeCity(lat, lon, cityName);
+                        mainActivity.pushFragments(new MainFragment(), null);
+                    });
+                    recyclerView.setAdapter(recyclerAdapter);
+                }
+            });
+        }).start();
     }
 
     private String getCities() {
