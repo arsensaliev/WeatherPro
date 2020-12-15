@@ -20,7 +20,7 @@ public class DeveloperFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
         if (mainActivity != null) {
-//            mainActivity.setToolbarTitle(R.string.page_developer);
+            //            mainActivity.setToolbarTitle(R.string.page_developer);
         }
     }
 

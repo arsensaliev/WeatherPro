@@ -1,9 +1,12 @@
 package com.weatherpro;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.weatherpro.fragments.MainFragment;
 import com.weatherpro.fragments.developer.DeveloperFragment;
+import com.weatherpro.fragments.forecast.ForecastFragment;
 import com.weatherpro.fragments.location.LocationFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,51 +30,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private Toolbar toolbar;
     private NavigationView navigationView;
-
+    private TextView drawerHeaderTextView;
     // Fragments
     private FragmentTransaction fragmentTransaction;
     private Fragment fragment;
+
+    private OnQueryTextListener queryTextListener;
+
+    private String cityName;
+    private int lat;
+    private int lon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
+        drawerHeaderTextView = navigationView.getHeaderView(0).findViewById(R.id.drawer_header_text);
+
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.Open, R.string.Close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        loadData();
         pushFragments(new MainFragment(), null);
     }
 
-    private OnQueryTextListener queryTextListener;
-
-    public void setQueryTextListener(OnQueryTextListener queryTextListener) {
-        this.queryTextListener = queryTextListener;
-    }
-
-    public interface OnQueryTextListener {
-        boolean onQueryTextSubmit(String query);
-
-        boolean onQueryTextChange(String newText);
-    }
-
-    public void pushFragments(Fragment fragment, Bundle bundle) {
-        if (bundle != null) {
-            fragment.setArguments(bundle);
-        }
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
-        fragmentTransaction.replace(R.id.container_fragment, fragment);
-        fragmentTransaction.commit();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,10 +110,79 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new LocationFragment();
                 pushFragments(fragment, null);
                 toolbar.getMenu().findItem(R.id.app_bar_search).setVisible(true);
+                break;
+
+            case R.id.forecast:
+                fragment = new ForecastFragment();
+                pushFragments(fragment, null);
+                toolbar.getMenu().findItem(R.id.app_bar_search).setVisible(false);
+                break;
             default:
+                fragment = new MainFragment();
                 pushFragments(fragment, null);
         }
         return true;
     }
 
+    public void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.MAIN_SHARED_NAME, Context.MODE_PRIVATE);
+        cityName = sharedPreferences.getString(Constants.SHARED_CITY_NAME, Constants.SHARED_CITY_NAME_DEFAULT);
+        lat = sharedPreferences.getInt(Constants.SHARED_CITY_LAT, Constants.SHARED_CITY_LAT_DEFAULT);
+        lon = sharedPreferences.getInt(Constants.SHARED_CITY_LON, Constants.SHARED_CITY_LON_DEFAULT);
+        updateViews();
+    }
+
+    public void setQueryTextListener(OnQueryTextListener queryTextListener) {
+        this.queryTextListener = queryTextListener;
+    }
+
+    public interface OnQueryTextListener {
+        boolean onQueryTextSubmit(String query);
+
+        boolean onQueryTextChange(String newText);
+    }
+
+    public void pushFragments(Fragment fragment, Bundle bundle) {
+        if (bundle != null) {
+            fragment.setArguments(bundle);
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
+        fragmentTransaction.replace(R.id.container_fragment, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    public void changeCity(int lat, int lon, String cityName) {
+        this.lat = lat;
+        this.lon = lon;
+        this.cityName = cityName;
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.MAIN_SHARED_NAME, MODE_PRIVATE);
+        sharedPreferences.edit()
+                .putInt(Constants.SHARED_CITY_LAT, this.lat)
+                .putInt(Constants.SHARED_CITY_LON, this.lon)
+                .putString(Constants.SHARED_CITY_NAME, this.cityName)
+                .apply();
+
+        updateViews();
+    }
+
+    private void updateViews() {
+        drawerHeaderTextView.setText(cityName);
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public int getLat() {
+        return lat;
+    }
+
+    public int getLon() {
+        return lon;
+    }
 }

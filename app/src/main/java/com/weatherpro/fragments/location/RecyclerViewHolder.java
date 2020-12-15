@@ -18,7 +18,6 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-
     public TextView getLocationCity() {
         return locationCity;
     }

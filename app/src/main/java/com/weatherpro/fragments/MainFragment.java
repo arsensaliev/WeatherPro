@@ -1,8 +1,6 @@
 package com.weatherpro.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,9 +16,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.weatherpro.Constants;
 import com.weatherpro.MainActivity;
 import com.weatherpro.R;
-import com.weatherpro.models.current.CurrentApi;
-import com.weatherpro.models.current.Main;
-import com.weatherpro.models.current.Wind;
+import com.weatherpro.models.currentApi.Current;
+import com.weatherpro.models.currentApi.CurrentApi;
 import com.weatherpro.requests.WeatherRequest;
 
 import org.jetbrains.annotations.NotNull;
@@ -45,11 +42,6 @@ public class MainFragment extends Fragment {
     private TextView pressureView;
     private TextView cityTextView;
 
-    private SharedPreferences.Editor editor;
-
-    private String cityName;
-    private int cityLat;
-    private int cityLon;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +54,6 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
-
         init(view);
         return view;
     }
@@ -74,7 +65,7 @@ public class MainFragment extends Fragment {
         humidityView = view.findViewById(R.id.main_fragment_current_humidity);
         pressureView = view.findViewById(R.id.main_fragment_current_pressure);
         cityTextView = view.findViewById(R.id.main_fragment_location);
-        loadData();
+
         getCurrentWeather(view);
     }
 
@@ -86,33 +77,32 @@ public class MainFragment extends Fragment {
                 .build();
 
         WeatherRequest weatherRequest = retrofit.create(WeatherRequest.class);
-        Call<CurrentApi> currentApiCall = weatherRequest.getCurrentData(cityLat, cityLon, Constants.API_KEY);
+        Call<CurrentApi> currentApiCall = weatherRequest.getCurrentData(mainActivity.getLat(), mainActivity.getLon(), Constants.API_KEY);
 
         currentApiCall.enqueue(new Callback<CurrentApi>() {
             @SuppressLint({"SetTextI18n", "DefaultLocale"})
             @Override
             public void onResponse(@NotNull Call<CurrentApi> call, @NotNull Response<CurrentApi> response) {
                 if (response.code() == 404) {
-                    Snackbar.make(view, "", Snackbar.LENGTH_LONG).show();
-//                    Log.d(TAG, "Please enter a valid Location");
+                    Snackbar.make(view, "Not Found", Snackbar.LENGTH_LONG).show();
+                    Log.d(TAG, "Please enter a valid Location");
                 } else if (!(response.isSuccessful())) {
                     Snackbar.make(view, response.code(), Snackbar.LENGTH_LONG).show();
-//                    Log.d(TAG, String.valueOf(response.code()));
+                    Log.d(TAG, String.valueOf(response.code()));
                 }
 
 
                 CurrentApi data = response.body();
 
                 if (data != null) {
-                    Main main = data.getMain();
-                    Wind wind = data.getWind();
+                    Current current = data.getCurrent();
 
-                    int temperature = (int) Math.round(main.getTemp());
+                    String temp = String.valueOf((int) current.getTemp());
+                    String windSpeed = String.valueOf((int) current.getWindSpeed());
+                    String press = String.valueOf(current.getPressure());
+                    String hum = String.valueOf(current.getHumidity());
 
-                    temperatureView.setText(String.valueOf(temperature));
-                    windView.setText(Double.toString(wind.getSpeed()));
-                    humidityView.setText(String.valueOf(main.getHumidity()));
-                    pressureView.setText(String.valueOf(main.getPressure()));
+                    updateViews(temp, windSpeed, press, hum);
                 }
             }
 
@@ -124,12 +114,11 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private void loadData() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(Constants.MAIN_SHARED_NAME, Context.MODE_PRIVATE);
-        cityName = sharedPreferences.getString(Constants.SHARED_COUNTRY_NAME, Constants.SHARED_COUNTRY_NAME_DEFAULT);
-        cityLat = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LAT, Constants.SHARED_COUNTRY_LAT_DEFAULT);
-        cityLon = sharedPreferences.getInt(Constants.SHARED_COUNTRY_LON, Constants.SHARED_COUNTRY_LON_DEFAULT);
-
-        cityTextView.setText(cityName);
+    private void updateViews(String temp, String windSpeed, String press, String hum) {
+        temperatureView.setText(temp);
+        windView.setText(windSpeed);
+        pressureView.setText(press);
+        humidityView.setText(hum);
+        cityTextView.setText(mainActivity.getCityName());
     }
 }

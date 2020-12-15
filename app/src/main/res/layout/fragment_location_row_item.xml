@@ -13,5 +13,5 @@
         android:layout_marginTop="14dp"
         android:layout_marginBottom="14dp"
         android:textSize="@dimen/rowItem"
-        tools:text="This is some temp text" />
+        tools:text="This is some dailyTemp text" />
 </FrameLayout>

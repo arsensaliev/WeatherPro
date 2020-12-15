@@ -79,7 +79,7 @@ public class LocationFragment extends Fragment {
     }
 
     private void initRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_location);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -87,19 +87,21 @@ public class LocationFragment extends Fragment {
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         Gson gson = new Gson();
-        String cities = getCities();
-        cityModelList = gson.fromJson(cities, CitiesModel.class).getList();
-
-        recyclerAdapter = new RecyclerAdapter(cityModelList);
-        recyclerAdapter.SetOnItemClickListener((lat, lon, cityName) -> {
-            editor.putBoolean(Constants.SHARED_IS_COUNTRY_EMPTY, false);
-            editor.putString(Constants.SHARED_COUNTRY_NAME, cityName);
-            editor.putInt(Constants.SHARED_COUNTRY_LAT, lat);
-            editor.putInt(Constants.SHARED_COUNTRY_LON, lon);
-            editor.apply();
-            mainActivity.pushFragments(new MainFragment(), null);
-        });
-        recyclerView.setAdapter(recyclerAdapter);
+        new Thread(() -> {
+            String cities = getCities();
+            cityModelList = gson.fromJson(cities, CitiesModel.class).getList();
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    recyclerAdapter = new RecyclerAdapter(cityModelList);
+                    recyclerAdapter.SetOnItemClickListener((lat, lon, cityName) -> {
+                        mainActivity.changeCity(lat, lon, cityName);
+                        mainActivity.pushFragments(new MainFragment(), null);
+                    });
+                    recyclerView.setAdapter(recyclerAdapter);
+                }
+            });
+        }).start();
     }
 
     private String getCities() {

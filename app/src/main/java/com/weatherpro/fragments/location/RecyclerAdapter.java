@@ -41,7 +41,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> im
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.row_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.fragment_location_row_item, parent, false);
         return new RecyclerViewHolder(view);
     }
 
@@ -67,7 +67,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> im
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.row_item;
+        return R.layout.fragment_location_row_item;
     }
 
     @Override
